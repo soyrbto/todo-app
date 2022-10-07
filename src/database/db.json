@@ -1,15 +1,9 @@
 {
-    "task":[
+  "tasks": [
     {
-    "id":1,
-    "state":false,
-    "description":"Learn react testing"
-    },
-    {
-        "id":1,
-        "state":false,
-        "description":"Learn json server"
+      "state": false,
+      "description": "Jugar Portal con Yenny",
+      "id": 1
     }
-]
-
+  ]
 }

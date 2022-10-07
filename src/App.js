@@ -5,21 +5,31 @@ import DisplayTasks from "./display/DisplayTasks";
 
 function App() {
 	const [tasks, setTasks] = useState(null);
+	const [doneTask, setDoneTask] = useState(true);
+
+	const getTaskList = async () => {
+		const response = await fetch("http://localhost:4000/tasks");
+		const tasksList = await response.json();
+		setTasks(tasksList);
+
+		const filtered = await tasksList.filter((el) => el.state == true).length;
+		await setDoneTask(filtered);
+	};
 
 	useEffect(() => {
-		fetch("http://localhost:4000/task")
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setTasks(data);
-			});
+		getTaskList();
 	}, []);
 
 	return (
 		<div className='App'>
-			<CreateTask />
-			{tasks && <DisplayTasks tasks={tasks} />}
+			<CreateTask updateTaskList={getTaskList} />
+			{tasks && (
+				<DisplayTasks
+					tasks={tasks}
+					updateTaskList={getTaskList}
+					doneTask={doneTask}
+				/>
+			)}
 		</div>
 	);
 }
