@@ -7,8 +7,14 @@ function App() {
 	const [tasks, setTasks] = useState(null);
 	const [doneTask, setDoneTask] = useState(true);
 
-	const getTaskList = async () => {
-		const response = await fetch("http://localhost:4000/tasks");
+	const getTaskList = async (searchTerm) => {
+		let url = "http://localhost:4000/tasks?_";
+
+		if (searchTerm) {
+			url += `&q=${searchTerm}`;
+		}
+
+		const response = await fetch(url);
 		const tasksList = await response.json();
 		setTasks(tasksList);
 

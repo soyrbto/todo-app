@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./DisplayTasks.scss";
 
 const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
+	const [filterValue, setFilterValue] = useState("");
+
 	const updaState = async (e) => {
 		const idTask = e.target.id;
 		const stateTask = tasks.find((item) => item.id == idTask).state;
@@ -18,7 +20,6 @@ const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
 
 	const deleteTask = async (e) => {
 		const idTask = e.target.id;
-		console.log("delete was clicked", idTask);
 
 		await fetch(`http://localhost:4000/tasks/${idTask}`, {
 			method: "DELETE",
@@ -28,6 +29,14 @@ const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
 		await updateTaskList();
 	};
 
+	const handleChange = (e) => {
+		if (e.key === "Enter") {
+			setFilterValue("");
+		}
+		updateTaskList(filterValue);
+		setFilterValue(e.target.value);
+	};
+
 	return (
 		<div className='displayTask-wrapper'>
 			<div className='header'>
@@ -35,7 +44,12 @@ const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
 				<h2>
 					Completed {doneTask} out of {tasks.length}
 				</h2>
-				<input type='text' placeholder='Filter' />
+				<input
+					type='text'
+					placeholder='Filter'
+					onChange={handleChange}
+					onKeyUp={handleChange}
+				/>
 			</div>
 			<div className='tasks-list'>
 				{tasks.map((task) => (

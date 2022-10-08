@@ -6,6 +6,8 @@ function CreateTask({ updateTaskList }) {
 	const [newTaskTitle, setNewtaskTitle] = useState("");
 
 	const addTask = async (newTask) => {
+
+		
 		await fetch("http://localhost:4000/tasks", {
 			method: "POST",
 			body: JSON.stringify(newTask),

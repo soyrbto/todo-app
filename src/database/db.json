@@ -1,9 +1,24 @@
 {
   "tasks": [
     {
-      "state": false,
-      "description": "Jugar Portal con Yenny",
+      "state": true,
+      "description": "lista la aplicacion",
       "id": 1
+    },
+    {
+      "state": true,
+      "description": "Estudiar con NetNinja",
+      "id": 2
+    },
+    {
+      "state": false,
+      "description": "Estudiar Platzi",
+      "id": 3
+    },
+    {
+      "state": false,
+      "description": "Leer Documentacion ",
+      "id": 4
     }
   ]
 }
