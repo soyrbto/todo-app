@@ -19,6 +19,11 @@
       "state": false,
       "description": "Leer Documentacion ",
       "id": 4
+    },
+    {
+      "state": true,
+      "description": "Releer la aplicacion",
+      "id": 5
     }
   ]
 }

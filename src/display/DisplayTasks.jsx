@@ -1,32 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./DisplayTasks.scss";
 
 const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
 	const [filterValue, setFilterValue] = useState("");
 
-	const updaState = async (e) => {
+	const updateState = (e) => {
 		const idTask = e.target.id;
 		const stateTask = tasks.find((item) => item.id == idTask).state;
 
-		// console.log(stateTask, idTask);
-		await fetch(`http://localhost:4000/tasks/${idTask}`, {
+		fetch(`http://localhost:4000/tasks/${idTask}`, {
 			method: "PATCH",
 			body: JSON.stringify({ state: !stateTask }),
 			headers: { "content-type": "application/json" },
-		});
-
-		await updateTaskList();
+		}).then(() => updateTaskList());
 	};
 
-	const deleteTask = async (e) => {
+	const deleteTask = (e) => {
 		const idTask = e.target.id;
 
-		await fetch(`http://localhost:4000/tasks/${idTask}`, {
+		fetch(`http://localhost:4000/tasks/${idTask}`, {
 			method: "DELETE",
-			header: { "content-type": "application/jsopn" },
-		});
-
-		await updateTaskList();
+		}).then(() => updateTaskList());
 	};
 
 	const handleChange = (e) => {
@@ -59,7 +53,7 @@ const DisplayTasks = ({ tasks, doneTask, updateTaskList }) => {
 							name=''
 							id={task.id}
 							defaultChecked={task.state}
-							onClick={updaState}
+							onClick={updateState}
 						/>
 						<div className={`task-title ${task.state ? "completed" : ""}`}>
 							{task.description}

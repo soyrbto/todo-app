@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import CreateTask from "./create/CreateTask";
 import DisplayTasks from "./display/DisplayTasks";
+import "./App.css";
 
 function App() {
 	const [tasks, setTasks] = useState(null);
@@ -19,7 +19,7 @@ function App() {
 		setTasks(tasksList);
 
 		const filtered = await tasksList.filter((el) => el.state == true).length;
-		await setDoneTask(filtered);
+		setDoneTask(filtered);
 	};
 
 	useEffect(() => {

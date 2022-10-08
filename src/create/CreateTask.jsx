@@ -1,35 +1,28 @@
 import "./CreateTask.scss";
-import React, { useState } from "react";
+import { useState } from "react";
 import createTaskImg from "../img/createtask.svg";
 
 function CreateTask({ updateTaskList }) {
 	const [newTaskTitle, setNewtaskTitle] = useState("");
 
-	const addTask = async (newTask) => {
-
-		
-		await fetch("http://localhost:4000/tasks", {
+	const addTask = (newTask) => {
+		fetch("http://localhost:4000/tasks", {
 			method: "POST",
 			body: JSON.stringify(newTask),
 			headers: { "content-type": "application/json" },
-		});
-
-		await updateTaskList();
+		}).then(() => updateTaskList());
 	};
 
 	const buttonHandler = (e) => {
+		const newTask = {
+			state: false,
+			description: newTaskTitle,
+		};
+
 		if (e.key === "Enter") {
-			const newTask = {
-				state: false,
-				description: newTaskTitle,
-			};
 			addTask(newTask);
 			setNewtaskTitle("");
 		}
-	};
-
-	const handleChange = (event) => {
-		setNewtaskTitle(event.target.value);
 	};
 
 	return (
@@ -37,13 +30,13 @@ function CreateTask({ updateTaskList }) {
 			<h1>What needs to be done today?</h1>
 			<input
 				value={newTaskTitle}
-				onChange={handleChange}
+				onChange={(e) => setNewtaskTitle(e.target.value)}
 				type='text'
 				placeholder='type here and tap or click the button'
 				onKeyDown={buttonHandler}
 			/>
 			<button onClick={() => buttonHandler()}>New task</button>
-			<img src={createTaskImg} alt='' />
+			<img src={createTaskImg} />
 		</div>
 	);
 }
